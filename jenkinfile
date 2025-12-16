@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = 'dockerId'
+        IMAGE_NAME = 'ashudockerhub/my_webapp'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git(
+                    url: 'https://github.com/mca014ashritha-design/node.git',
+                    branch: 'main',
+                    credentialsId: 'dockerId'
+                )
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Use Groovy interpolation and no parentheses in the image name
+                    dockerImage = docker.build("${IMAGE_NAME}:latest")
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
+    }
+}
