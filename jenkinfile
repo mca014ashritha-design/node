@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerId'
-        IMAGE_NAME = 'ashudockerhub/my_webapp'
+        IMAGE_NAME = 'ashudockerhub/node'
     }
 
     stages {
