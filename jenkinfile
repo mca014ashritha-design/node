@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git(
-                    url: 'git@github.com:mca014ashritha-design/node.git',
+                    url: 'https://github.com/mca014ashritha-design/node',
                     branch: 'main',
                     credentialsId: 'dockerId'  // Use the Jenkins SSH credentials ID here
                 )
